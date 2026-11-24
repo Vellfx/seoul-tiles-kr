@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#F4F6FB" />
+  <title>Модулі · Вивчай корейську легко</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Desktop backdrop helper label -->
+  <div class="desktop-frame-info" aria-hidden="true">
+    <span class="desktop-badge">📱 Мобільний макет · 390×844</span>
+    <span class="desktop-hint">Інтерактивний плитковий інтерфейс (натискайте на плитки)</span>
+  </div>
+
+  <div class="phone-shell" id="phoneShell">
+    <!-- Top Status / App Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-tile" aria-hidden="true">한</div>
+        <div>
+          <p class="header-greeting">안녕! Привіт</p>
+          <h1 class="header-title">Сеул · Плитки</h1>
+        </div>
+      </div>
+      <div class="header-stats">
+        <button class="stat-pill stat-streak" id="streakBtn" title="Серія днів">
+          <span class="stat-icon">🔥</span>
+          <span id="streakCount">7</span>
+        </button>
+        <button class="stat-pill stat-xp" id="xpBtn" title="Досвід">
+          <span class="stat-icon">✦</span>
+          <span id="xpCount">240</span>
+        </button>
+        <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Змінити тему" title="Світла / Темна тема">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scrollable Viewport -->
+    <main class="app-main" id="appMain">
+      <!-- TAB 1: HOME (BENTO TILES) -->
+      <section class="tab-view active" id="tab-home" aria-label="Головна">
+        <!-- Hero Tile: Word of the Day -->
+        <article class="tile tile-hero" id="wordOfDayTile">
+          <div class="tile-top-row">
+            <span class="tile-chip chip-warm">Слово дня · 단어가게</span>
+            <button class="audio-btn" data-speak="설레다" aria-label="Прослухати 설레다">🔊</button>
+          </div>
+          <div class="hero-word-row">
+            <div>
+              <div class="korean-hero">설레다</div>
+              <div class="phonetic-line">[солледа] · seolleda</div>
+            </div>
+            <button class="check-tile-btn" id="wotdLearnBtn" aria-pressed="false">
+              <span>+15 XP</span>
+            </button>
+          </div>
+          <p class="hero-meaning">Приємно хвилюватися, відчувати трепет перед чимось хорошим</p>
+          <div class="hero-example">
+            <span class="ex-kr">내일 여행 가서 <strong>설레요</strong>.</span>
+            <span class="ex-uk">Хвилююся, бо завтра їду в подорож.</span>
+          </div>
+        </article>
+
+        <!-- Bento Grid 2 columns -->
+        <div class="bento-grid">
+          <!-- Tall Tile: Daily Quest -->
+          <article class="tile tile-tall tile-cobalt" data-action="go-practice">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-light">Квест дня</span>
+              <span class="tile-arrow">↗</span>
+            </div>
+            <div class="quest-ring-wrap">
+              <svg class="quest-ring" viewBox="0 0 80 80">
+                <circle class="ring-bg" cx="40" cy="40" r="33" />
+                <circle class="ring-progress" id="questRingCircle" cx="40" cy="40" r="33" />
+              </svg>
+              <div class="quest-ring-label">
+                <strong id="questDoneCount">3</strong><span>/5</span>
+              </div>
+            </div>
+            <div class="tile-bottom">
+              <h2 class="tile-title">Міні-урок</h2>
+              <p class="tile-sub">Залишилось 2 вправи до бонусу</p>
+            </div>
+          </article>
+
+          <!-- Tile: Hangul Board -->
+          <article class="tile tile-jade" data-action="go-hangul">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-dark-alpha">Абетка</span>
+              <span class="big-jamo-preview">가</span>
+            </div>
+            <div class="tile-bottom">
+              <h2 class="tile-title">Хангиль</h2>
+              <p class="tile-sub">14 приголосних · 10 голосних</p>
+            </div>
+          </article>
+
+          <!-- Tile: Travel Phrases -->
+          <article class="tile tile-yuja" data-sheet="travel">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-dark-alpha">Фрази</span>
+              <span class="tile-emoji">🚇</span>
+            </div>
+            <div class="tile-bottom">
+              <h2 class="tile-title">У Сеулі</h2>
+              <p class="tile-sub">Кафе, метро, оплата</p>
+              <div class="mini-progress"><span style="width: 65%"></span></div>
+            </div>
+          </article>
+
+          <!-- Wide Tile: Quick Audio Challenge -->
+          <article class="tile tile-wide tile-paper" id="quickChallengeTile">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-outline">⚡ Швидка плитка</span>
+              <button class="audio-btn small" id="quickAudioBtn" aria-label="Прослухати слово">🔊 Слухати</button>
+            </div>
+            <div class="quick-q-row">
+              <div>
+                <div class="quick-kr" id="quickKrWord">감사합니다</div>
+                <div class="quick-hint" id="quickHint">Обери правильний переклад:</div>
+              </div>
+            </div>
+            <div class="quick-options" id="quickOptions">
+              <!-- Populated by JS -->
+            </div>
+          </article>
+
+          <!-- Tile: Flashcards -->
+          <article class="tile tile-violet" data-action="go-flashcards">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-light">Картки</span>
+              <span class="badge-count" id="dueCardsBadge">8</span>
+            </div>
+            <div class="tile-bottom">
+              <h2 class="tile-title">Слова дня</h2>
+              <p class="tile-sub">Повторити сьогодні</p>
+            </div>
+          </article>
+
+          <!-- Tile: K-Culture Slang -->
+          <article class="tile tile-coral-soft" data-sheet="slang">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-warm">Сленг</span>
+              <span class="tile-emoji">✨</span>
+            </div>
+            <div class="tile-bottom">
+              <h2 class="tile-title">대박!</h2>
+              <p class="tile-sub">Живі вирази з дорам</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Horizontal Scrollable Module Tiles -->
+        <div class="section-head">
+          <h2 class="section-title">Тематичні плитки</h2>
+          <button class="section-link" data-action="go-vocab">Усі слова →</button>
+        </div>
+        <div class="topic-rail" id="topicRail">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- TAB 2: HANGUL (INTERACTIVE TILES & SYLLABLE BUILDER) -->
+      <section class="tab-view" id="tab-hangul" aria-label="Хангиль">
+        <!-- Pinned Inspector Tile -->
+        <article class="tile tile-inspector" id="hangulInspector">
+          <div class="inspector-main">
+            <div class="inspector-char-box" id="inspChar">ㄱ</div>
+            <div class="inspector-meta">
+              <div class="inspector-top">
+                <span class="tile-chip chip-warm" id="inspType">Приголосний</span>
+                <button class="audio-btn" id="inspAudioBtn" aria-label="Вимовити звук">🔊</button>
+              </div>
+              <h2 class="inspector-sound" id="inspSound">[к / ґ] · g/k</h2>
+              <p class="inspector-tip" id="inspTip">На початку слова глухий [к], між голосними м'якший [ґ].</p>
+            </div>
+          </div>
+          <div class="inspector-example" id="inspExample">
+            <span>Приклад:</span>
+            <strong id="inspExWord">가방</strong>
+            <span id="inspExTr">[кабан] — сумка</span>
+          </div>
+        </article>
+
+        <!-- Sub-mode Segmented Control -->
+        <div class="segmented-tiles" role="tablist">
+          <button class="seg-btn active" data-jamo-tab="consonants">Приголосні (14)</button>
+          <button class="seg-btn" data-jamo-tab="vowels">Голосні (10)</button>
+          <button class="seg-btn" data-jamo-tab="builder">Конструктор</button>
+        </div>
+
+        <!-- Consonants & Vowels Grid -->
+        <div class="jamo-grid" id="jamoGrid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Syllable Builder View -->
+        <div class="builder-panel hidden" id="builderPanel">
+          <div class="tile builder-result-tile">
+            <div class="builder-formula">
+              <span class="slot-pill" id="slotC">ㄱ</span>
+              <span class="plus-sign">+</span>
+              <span class="slot-pill" id="slotV">ㅏ</span>
+              <span class="plus-sign">=</span>
+              <div class="built-syllable" id="builtSyllable">가</div>
+            </div>
+            <div class="builder-info">
+              <span class="built-reading" id="builtReading">[ка] · ga</span>
+              <button class="audio-btn" id="builtAudioBtn">🔊 Вимова</button>
+            </div>
+          </div>
+          <p class="builder-label">1. Обери початковий приголосний:</p>
+          <div class="mini-jamo-row" id="builderConsonants"></div>
+          <p class="builder-label">2. Обери голосний:</p>
+          <div class="mini-jamo-row" id="builderVowels"></div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PRACTICE (FLASHCARDS + MATCHING + QUIZ) -->
+      <section class="tab-view" id="tab-practice" aria-label="Практика">
+        <div class="segmented-tiles">
+          <button class="seg-btn active" data-practice-mode="flashcards">Картки</button>
+          <button class="seg-btn" data-practice-mode="match">Пари плиток</button>
+          <button class="seg-btn" data-practice-mode="quiz">Аудіо-тест</button>
+        </div>
+
+        <!-- Mode A: 3D Flashcards -->
+        <div class="practice-pane" id="pane-flashcards">
+          <div class="deck-status">
+            <span id="cardProgressText">Картка 1 з 8</span>
+            <span class="tile-chip chip-warm">+10 XP за слово</span>
+          </div>
+          <div class="flashcard-wrap" id="flashcardWrap">
+            <div class="flashcard" id="flashcard">
+              <div class="flashcard-face flashcard-front">
+                <span class="tile-chip chip-outline" id="fcCategory">Привітання</span>
+                <div class="fc-korean" id="fcKorean">안녕하세요</div>
+                <p class="fc-tap-hint">Натисни на плитку, щоб перевернути</p>
+                <button class="audio-btn fc-audio" id="fcAudioBtn" aria-label="Прослухати">🔊 Слухати</button>
+              </div>
+              <div class="flashcard-face flashcard-back">
+                <span class="tile-chip chip-light">Переклад</span>
+                <div class="fc-ukrainian" id="fcUkrainian">Вітаю / Добрий день</div>
+                <div class="fc-phonetic" id="fcPhonetic">[анньонхасейо]</div>
+                <p class="fc-note" id="fcNote">Ввічлива форма для знайомих і незнайомих людей.</p>
+              </div>
+            </div>
+          </div>
+          <div class="fc-actions">
+            <button class="btn-tile btn-repeat" id="fcRepeatBtn">🔄 Ще раз</button>
+            <button class="btn-tile btn-know" id="fcKnowBtn">✓ Знаю</button>
+          </div>
+        </div>
+
+        <!-- Mode B: Tile Matching Game -->
+        <div class="practice-pane hidden" id="pane-match">
+          <div class="deck-status">
+            <span>З'єднай корейське слово та переклад</span>
+            <button class="section-link" id="resetMatchBtn">↻ Оновити</button>
+          </div>
+          <div class="match-grid" id="matchGrid">
+            <!-- Populated by JS -->
+          </div>
+          <div class="match-complete hidden" id="matchComplete">
+            <div class="tile tile-jade">
+              <h3>잘했어요! Чудово! 🎉</h3>
+              <p>Усі пари зібрано без помилок. +25 XP нараховано.</p>
+              <button class="btn-tile btn-know" id="playAgainMatchBtn">Зіграти ще раунд</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode C: Audio / Meaning Quiz -->
+        <div class="practice-pane hidden" id="pane-quiz">
+          <article class="tile tile-paper quiz-card">
+            <div class="tile-top-row">
+              <span class="tile-chip chip-warm" id="quizStepLabel">Питання 1 / 5</span>
+              <button class="audio-btn" id="quizSpeakBtn">🔊 Вимовити</button>
+            </div>
+            <div class="quiz-prompt">
+              <div class="quiz-kr" id="quizKr">커피 주세요</div>
+              <div class="quiz-tr" id="quizTr">[кхопхі чусейо]</div>
+            </div>
+            <div class="quiz-options" id="quizOptions">
+              <!-- Populated by JS -->
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- TAB 4: VOCABULARY TILES -->
+      <section class="tab-view" id="tab-vocab" aria-label="Словник">
+        <div class="search-tile">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="vocabSearch" placeholder="Пошук слова (корейською або укр.)..." />
+        </div>
+        <div class="filter-chips" id="vocabFilters">
+          <button class="filter-chip active" data-filter="all">Усі</button>
+          <button class="filter-chip" data-filter="fav">⭐ Обране</button>
+          <button class="filter-chip" data-filter="greetings">Привітання</button>
+          <button class="filter-chip" data-filter="food">Їжа</button>
+          <button class="filter-chip" data-filter="travel">Подорожі</button>
+          <button class="filter-chip" data-filter="feelings">Емоції</button>
+        </div>
+        <div class="vocab-grid" id="vocabGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- TAB 5: PROFILE (TILED PROFILE & SETTINGS) -->
+      <section class="tab-view" id="tab-profile" aria-label="Профіль">
+        <article class="tile tile-profile-hero">
+          <div class="profile-hero-top">
+            <button class="profile-avatar-tile" id="avatarCycleBtn" title="Змінити аватар">🦊</button>
+            <div class="profile-identity">
+              <div class="profile-name-row">
+                <h2 class="profile-name" id="profileNameText">Сеул · Учень</h2>
+                <button class="icon-btn small-edit" id="editNameBtn" aria-label="Змінити ім'я" title="Змінити ім'я">✎</button>
+              </div>
+              <span class="tile-chip chip-warm" id="profileLevelChip">Рівень 2 · TOPIK 1</span>
+            </div>
+          </div>
+          <div class="profile-xp-block">
+            <div class="profile-xp-labels">
+              <span>Прогрес рівня</span>
+              <strong id="profileXpProgressText">240 / 500 XP</strong>
+            </div>
+            <div class="profile-xp-bar">
+              <div class="profile-xp-fill" id="profileXpFill" style="width: 48%"></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="bento-grid profile-grid">
+          <article class="tile tile-profile-stat">
+            <span class="tile-chip chip-outline">Серія</span>
+            <div class="pstat-val">🔥 <span id="profileStreakVal">7</span> дн.</div>
+            <p class="tile-sub">Рекорд: 12 днів</p>
+          </article>
+
+          <article class="tile tile-profile-stat">
+            <span class="tile-chip chip-outline">Словник</span>
+            <div class="pstat-val">⭐ <span id="profileFavCount">3</span> сл.</div>
+            <p class="tile-sub">У списку обраного</p>
+          </article>
+
+          <article class="tile tile-profile-stat">
+            <span class="tile-chip chip-outline">Квест дня</span>
+            <div class="pstat-val">⚡ <span id="profileQuestVal">3</span>/5</div>
+            <p class="tile-sub">Вправ виконано</p>
+          </article>
+
+          <article class="tile tile-profile-stat">
+            <span class="tile-chip chip-outline">Хангиль</span>
+            <div class="pstat-val">한 <span id="profileJamoCount">24</span></div>
+            <p class="tile-sub">Базових літер</p>
+          </article>
+
+          <!-- Wide Tile: Achievements -->
+          <article class="tile tile-wide">
+            <div class="tile-top-row">
+              <h3 class="section-title">Досягнення</h3>
+              <span class="tile-chip chip-warm" id="badgeSummary">3 / 4</span>
+            </div>
+            <div class="badges-grid" id="badgesGrid">
+              <div class="badge-tile unlocked">
+                <span class="badge-ico">🌱</span>
+                <span class="badge-name">Перший склад</span>
+              </div>
+              <div class="badge-tile unlocked">
+                <span class="badge-ico">🔥</span>
+                <span class="badge-name">7 днів поспіль</span>
+              </div>
+              <div class="badge-tile unlocked">
+                <span class="badge-ico">☕</span>
+                <span class="badge-name">Гість Сеулу</span>
+              </div>
+              <div class="badge-tile" id="badgeMaster">
+                <span class="badge-ico">👑</span>
+                <span class="badge-name">300+ XP</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Wide Tile: Appearance & Audio Settings -->
+          <article class="tile tile-wide profile-settings-tile">
+            <h3 class="section-title">Налаштування макета</h3>
+
+            <div class="setting-row">
+              <div>
+                <div class="setting-title">Колір акценту</div>
+                <div class="setting-sub">Змінює головний колір плиток</div>
+              </div>
+              <div class="accent-swatches" id="accentSwatches">
+                <button class="swatch active" data-accent="indigo" style="background:#5B4FE9" aria-label="Індиго"></button>
+                <button class="swatch" data-accent="rose" style="background:#E11D74" aria-label="Малиновий"></button>
+                <button class="swatch" data-accent="mint" style="background:#0EA57A" aria-label="М'ятний"></button>
+                <button class="swatch" data-accent="amber" style="background:#EA580C" aria-label="Мандариновий"></button>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <div class="setting-title">Темна тема</div>
+                <div class="setting-sub">Комфортне читання ввечері</div>
+              </div>
+              <button class="toggle-pill" id="profileThemeBtn" aria-pressed="false">Вимкнено</button>
+            </div>
+
+            <div class="setting-row">
+              <div>
+                <div class="setting-title">Швидкість вимови</div>
+                <div class="setting-sub">Озвучення корейських слів</div>
+              </div>
+              <button class="toggle-pill" id="speechRateBtn">0.88x (Стандарт)</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Tab Navigation -->
+    <nav class="bottom-nav" aria-label="Основна навігація">
+      <button class="nav-item active" data-tab="home">
+        <span class="nav-icon">⊞</span>
+        <span class="nav-label">Плитки</span>
+      </button>
+      <button class="nav-item" data-tab="hangul">
+        <span class="nav-icon">가</span>
+        <span class="nav-label">Хангиль</span>
+      </button>
+      <button class="nav-item" data-tab="practice">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-label">Практика</span>
+      </button>
+      <button class="nav-item" data-tab="vocab">
+        <span class="nav-icon">◫</span>
+        <span class="nav-label">Словник</span>
+      </button>
+      <button class="nav-item" data-tab="profile">
+        <span class="nav-icon">☺</span>
+        <span class="nav-label">Профіль</span>
+      </button>
+    </nav>
+
+    <!-- Bottom Sheet Drawer (Modules / Slang / Travel Phrases) -->
+    <div class="sheet-backdrop" id="sheetBackdrop" aria-hidden="true"></div>
+    <aside class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <span class="tile-chip chip-warm" id="sheetBadge">Модуль</span>
+          <h2 class="sheet-title" id="sheetTitle">Фрази</h2>
+        </div>
+        <button class="icon-btn" id="closeSheetBtn" aria-label="Закрити">✕</button>
+      </div>
+      <div class="sheet-content" id="sheetContent">
+        <!-- Populated by JS -->
+      </div>
+    </aside>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
